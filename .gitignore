@@ -1,0 +1,7 @@
+/build
+/.idea
+/CSIKit.egg-info
+/dist
+/.vscode
+/venv
+/idea
