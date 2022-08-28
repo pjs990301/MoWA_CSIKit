@@ -4,6 +4,12 @@ from CSIKit.util.csitools import get_CSI
 from CSIKit.reader import get_reader
 
 
+def round_int(x):
+    if x in [float("-inf"), float("inf")]:
+        return int(0)
+    return int(round(x))
+
+
 def generate_csv(path: str, dest: str, metric: str = "amplitude"):
     reader = get_reader(path)
     csi_data = reader.read_file(path)
@@ -37,6 +43,7 @@ def generate_csv(path: str, dest: str, metric: str = "amplitude"):
                     rx_data = subcarrier_data[rx]
                     for tx in range(no_tx):
                         tx_data = rx_data[tx]
+                        tx_data = round_int(tx_data)
                         row_data.append(tx_data)
 
             writer.writerow(row_data)
