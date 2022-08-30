@@ -17,7 +17,6 @@ def generate_csv(path: str, dest: str, metric: str = "amplitude"):
     csi_matrix, no_frames, no_subcarriers = get_CSI(csi_data, metric)
     print(type(csi_matrix.shape))
     no_rx, no_tx = csi_matrix.shape[2:]
-
     print("CSI Shape: {}".format(csi_matrix.shape))
     print("Number of Frames: {}".format(no_frames))
     print("Generating CSI {}...".format(metric))
@@ -28,15 +27,14 @@ def generate_csv(path: str, dest: str, metric: str = "amplitude"):
         for rx in range(no_rx):
             for tx in range(no_tx):
                 csv_header.append("Subcarrier_{}".format(subcarrier + 1))
-
     with open(dest, "w", newline="") as csv_file:
         writer = csv.writer(csv_file, delimiter=",")
         writer.writerow(csv_header)
 
+        # 프레임이 존재하는 동안 그 정도를 작성
         for frame in range(no_frames):
             frame_data = csi_matrix[frame]
             row_data = []
-
             for subcarrier in range(no_subcarriers):
                 subcarrier_data = frame_data[subcarrier]
                 for rx in range(no_rx):
@@ -47,4 +45,16 @@ def generate_csv(path: str, dest: str, metric: str = "amplitude"):
                         row_data.append(tx_data)
 
             writer.writerow(row_data)
+        # 프레임의 크기가 500이 아닌 경우 500까지 0으로 채워주기
+        if no_frames != 500:
+            for i in range(no_frames, 500):
+                for subcarrier in range(no_subcarriers):
+                    subcarrier_data = frame_data[subcarrier]
+                    for rx in range(no_rx):
+                        rx_data = 0
+                        for tx in range(no_tx):
+                            tx_data = 0
+                            row_data.append(tx_data)
+                writer.writerow(row_data)
+
     print("File written to: {}".format(dest))
