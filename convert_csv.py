@@ -45,16 +45,14 @@ def generate_csv(path: str, dest: str, metric: str = "amplitude"):
                         row_data.append(tx_data)
 
             writer.writerow(row_data)
+
         # 프레임의 크기가 500이 아닌 경우 500까지 0으로 채워주기
         if no_frames != 500:
             for i in range(no_frames, 500):
                 for subcarrier in range(no_subcarriers):
-                    subcarrier_data = frame_data[subcarrier]
-                    for rx in range(no_rx):
-                        rx_data = 0
-                        for tx in range(no_tx):
-                            tx_data = 0
-                            row_data.append(tx_data)
+                    for rx in range(no_rx - 1):
+                        tx_data = 0
+                        row_data.append(tx_data)
                 writer.writerow(row_data)
 
     print("File written to: {}".format(dest))
