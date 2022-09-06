@@ -8,8 +8,8 @@ import convert_csv
 # window
 path = "H:\\내 드라이브\\data\\pcap"
 os.chdir(path)
-for i in range(81, 122):
-    file_name = "Standing_Ex_Home_" + str(i)
+for i in range(1, 251):
+    file_name = "Lying_Ex_Home_" + str(i)
     convert_csv.generate_csv(file_name + ".pcap",
                              # "/Users/pyojisung/Library/CloudStorage/GoogleDrive-gachon.mowa@gmail.com/내
                              # 드라이브/data/csv/"+file_name + ".csv", 'amplitude')
