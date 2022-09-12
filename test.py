@@ -8,7 +8,7 @@ import convert_csv
 # window
 path = "H:\\내 드라이브\\data\\pcap"
 os.chdir(path)
-for i in range(1, 211):
+for i in range(211, 301):
     # file_name = "Lying_Ex_Home_" + str(i)
     # file_name = "Standing_Ex_Home_" + str(i)
     file_name = "Sitting_Ex_Home_" + str(i)
