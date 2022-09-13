@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/usr/lib/python3/dist-packages/")
+
 import os
 import ftplib
 import schedule
@@ -7,30 +10,34 @@ from datetime import datetime
 
 def command():
     now = datetime.now()
-    file_name = "input_" + now.strftime('%Y_%m_%d') + ".pcap"
+    file_name = "input_" + now.strftime('%Y_%m_%d_%H_%M_%S') + ".pcap"
     cmd = "tcpdump -i wlan0 dst port 5500 -vv -w " + file_name + " -c 500"
     os.system(cmd)
-    ftp(file_name)
+    return file_name
 
 
 def ftp(file_name):
     session = ftplib.FTP()
-    session.connect('blue-sun.kro.kr', 9002)  # 두 번째 인자는 port number
-    session.login("MoWA", "12345678")  # FTP 서버에 접속
+    session.connect('blue-sun.kro.kr', 9002)
+    session.login("MoWA", "12345678")
 
-    uploadfile = open(file_name, mode='rb')  # 업로드할 파일 open
+    uploadfile = open(file_name, mode='rb')
 
     session.encoding = 'utf-8'
-    session.storbinary('STOR ' + '/data/input/input.pcap', uploadfile)  # 파일 업로드
+    session.storbinary('STOR '+'/data/input/'+file_name, uploadfile)
+    uploadfile.close()
 
-    uploadfile.close()  # 파일 닫기
+    session.quit()
+    print("complete")
 
-    session.quit()  # 서버 나가기
-    print("전송 완료")
+def job():
+    file_name = command()
+    ftp(file_name)
 
 
-schedule.every(1).minutes.do(command())
+schedule.every(1).minutes.do(job)
 
 while True:
     schedule.run_pending()
     time.sleep(1)
+
