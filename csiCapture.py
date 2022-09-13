@@ -21,7 +21,7 @@ def ftp(file_name):
     uploadfile = open(file_name, mode='rb')  # 업로드할 파일 open
 
     session.encoding = 'utf-8'
-    session.storbinary('MoWA ' + '/data/input/input.pcap', uploadfile)  # 파일 업로드
+    session.storbinary('STOR ' + '/data/input/input.pcap', uploadfile)  # 파일 업로드
 
     uploadfile.close()  # 파일 닫기
 
