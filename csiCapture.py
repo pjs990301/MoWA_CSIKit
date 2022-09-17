@@ -1,43 +1,6 @@
-import sys
-sys.path.append("/usr/lib/python3/dist-packages/")
-
 import os
-import ftplib
-import schedule
-import time
-from datetime import datetime
 
-
-def command():
-    now = datetime.now()
-    file_name = "input_" + now.strftime('%Y_%m_%d_%H_%M_%S') + ".pcap"
-    cmd = "tcpdump -i wlan0 dst port 5500 -vv -w " + file_name + " -c 500"
-    os.system(cmd)
-    return file_name
-
-
-def ftp(file_name):
-    session = ftplib.FTP()
-    session.connect('blue-sun.kro.kr', 9002)
-    session.login("MoWA", "12345678")
-
-    uploadfile = open(file_name, mode='rb')
-
-    session.encoding = 'utf-8'
-    session.storbinary('STOR '+'/data/input/'+file_name, uploadfile)
-    uploadfile.close()
-
-    session.quit()
-    print("complete")
-
-def job():
-    file_name = command()
-    ftp(file_name)
-
-
-schedule.every(1).minutes.do(job)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-
+for i in range(64, 101):
+    command = "tcpdump -i wlan0 dst port 5500 -vv -w " + "Walking_Ex_Home_" + str(i) + ".pcap" + " -c 500"
+    print(command)
+    os.system(command)
