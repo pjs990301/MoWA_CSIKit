@@ -1,11 +1,11 @@
 import sys
-sys.path.append("/usr/lib/python3/dist-packages/")
-
 import os
 import ftplib
 import schedule
 import time
 from datetime import datetime
+
+sys.path.append("/usr/lib/python3/dist-packages/")
 
 
 def command():
@@ -24,11 +24,12 @@ def ftp(file_name):
     uploadfile = open(file_name, mode='rb')
 
     session.encoding = 'utf-8'
-    session.storbinary('STOR '+'/data/input/pcap/'+file_name, uploadfile)
+    session.storbinary('STOR ' + '/data/input/pcap/' + file_name, uploadfile)
     uploadfile.close()
 
     session.quit()
     print("complete")
+
 
 def job():
     file_name = command()
@@ -40,4 +41,3 @@ schedule.every(1).minutes.do(job)
 while True:
     schedule.run_pending()
     time.sleep(1)
-
