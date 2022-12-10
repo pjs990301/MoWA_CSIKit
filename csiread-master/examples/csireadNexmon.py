@@ -102,7 +102,7 @@ class Nexmon:
         else:
             pk_num = self.__get_count()
 
-        btype = np.int_
+        btype = np.float_
         self.sec = np.zeros([pk_num], dtype=btype)
         self.usec = np.zeros([pk_num], dtype=btype)
         self.caplen = np.zeros([pk_num], dtype=btype)
@@ -204,7 +204,9 @@ class Nexmon:
 
 if __name__ == '__main__':
     last = default_timer()
-    csifile = "../material/nexmon/dataset/example.pcap"
-    csidata = Nexmon(csifile, chip='4358', bw=80, if_report=False)
+    # csifile = "../material/nexmon/dataset/example.pcap"
+    csifile = "C:\\Users\\HOME\\Documents\\GitHub\\MoWA_CSIKit\\csiread-master\\examples\\widar3\\datTest\\output1.dat"
+    csidata = Nexmon(csifile, chip='43455c0', bw=80, if_report=False)
     csidata.read()
+    print(csidata.csi)
     print(default_timer() - last, 's')

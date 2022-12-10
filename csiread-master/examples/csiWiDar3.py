@@ -52,13 +52,15 @@ class Config:
     v_resolution = (v_max - v_min) / v_bin
     wave_length = 299792458 / 5.825e9
     t_stop = 1400
-    segment_length = 100
+    segment_length = 500
     segment_number = t_stop // segment_length
 
 
 def loadcsi(csifile):
-    csidata = csiread.Intel(csifile, if_report=False)
+    # csidata = csiread.Intel(csifile, if_report=False)
+    csidata = csiread.Nexmon(csifile, if_report=False, chip='43455c0', bw=80)
     csidata.read()
+    print(csidata.spatial)
     csi = csidata.get_scaled_csi_sm(True)[:, :, :, :1]
     tpl = np.diff(csidata.timestamp_low).view(np.int32)
     rate = np.floor(1e6 / tpl.mean())
@@ -86,7 +88,7 @@ def prepare_dataset(root):
     Returns:
         list: several csi files consist a group, groups consist our dataset.
     """
-    csi_root = join(root, 'csi')
+    csi_root = join(root, 'datTest')
     csifiles = [join(csi_root, file) for file in listdir(csi_root)]
     csifiles.sort()
     dataset = [csifiles]
@@ -411,4 +413,4 @@ if __name__ == '__main__':
     main(dataset[0], show_doppler=True)
     plot_bvp(dataset[0])
 
-    plot_doppler('../material/5300/dataset/sample_0x5_64_3000.dat')
+    # plot_doppler('../material/5300/dataset/sample_0x5_64_3000.dat')
