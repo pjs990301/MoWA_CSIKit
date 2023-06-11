@@ -36,6 +36,7 @@ Please check the link below for details.
 
 ## License
 Our repository worked on the MIT license.
+Please refer to the following [Link](https://github.com/pjs990301/MoWA_CSIKit/blob/main/LICENSE) for more information
 
 ## Contact
 - Pull Request
