@@ -26,13 +26,22 @@ This repository contains Python commands that help make CSI easier to handle on 
 
 
 ## Reference
-### csiread
+### citysu/csiread
 The repository provides useful libraries for each CSI extraction tool.
 You can use the library if you can easily install it.
 <pre><code>pip3 install csiread</code></pre>
 Please check the link below for details. 
 [Link](https://github.com/citysu/csiread)
 
+### nexmonster/nexmon_csi
+This repository makes it easy to install Nexmon CSI.    
+Please check the link below for details. 
+[Link](https://github.com/nexmonster/nexmon_csi)
+
+### seemoo-lab/nexmon
+You can obtain the firmware of Nexmon CSI on the official Nexmon CSI website.    
+Please check the link below for details. 
+[Link](https://github.com/seemoo-lab/nexmon)
 
 ## License
 Our repository worked on the MIT license.
