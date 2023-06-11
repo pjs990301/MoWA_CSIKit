@@ -22,7 +22,7 @@ This repository contains Python commands that help make CSI easier to handle on 
         You can modify the URL variable and request it to that URL.    
    <br>
 5. When the CSI data is extracted, the value of the data has the form of complex number data. But there are times when we want to check this visually.
-    <pre><code>converting.py</code></pre>
+    <pre><code>python converting.py</code></pre>
 
 
 ## Reference
